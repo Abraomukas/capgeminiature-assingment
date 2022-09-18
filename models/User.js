@@ -1,0 +1,11 @@
+const mongoose = require('mongoose');
+
+const UserSchema = new mongoose.Schema({
+	customerId: String,
+	name: String,
+	surname: String,
+	balance: Number,
+	transactions: [Number],
+});
+
+module.exports = mongoose.model.Users || mongoose.model('Users', UserSchema);
