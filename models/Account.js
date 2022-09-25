@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const AccountSchema = new mongoose.Schema({
-	customerId: String,
+	accountId: String,
 	credit: Number,
 	transactions: [String],
 });
