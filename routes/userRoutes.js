@@ -89,7 +89,7 @@ router.get('/details/:customerId', (req, res) => {
 	UserModel.findOne({ userId: customerId })
 		.then((user) => {
 			console.log('printing user details...'.toLocaleUpperCase());
-			console.log('name		- '.toLocaleUpperCase() + user.name);
+			console.log('name	- '.toLocaleUpperCase() + user.name);
 			console.log('surname	- '.toLocaleUpperCase() + user.surname);
 			console.log('balance	- '.toLocaleUpperCase() + user.balance);
 			console.log(
@@ -98,7 +98,18 @@ router.get('/details/:customerId', (req, res) => {
 					'] accounts:'.toLocaleUpperCase()
 			);
 			user.accounts.map((account) => {
-				console.log('[' + account.accountId + ']');
+				AccountModel.findOne({ accountId: account })
+					.then((acc) => {
+						console.log('[' + acc.accountId + ']');
+						console.log('Transactions: ' + acc.transactions.length);
+						acc.transactions.forEach((tnx) => {
+							console.log(tnx);
+						});
+					})
+					.catch((accErr) => {
+						console.log('account not found...'.toLocaleUpperCase(), accErr);
+						res.status(404).send({ message: 'Account not error...', accErr });
+					});
 			});
 		})
 		.catch((err) => {
