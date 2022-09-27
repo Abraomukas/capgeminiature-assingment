@@ -85,7 +85,6 @@ router.post('/:userId', (req, res) => {
 router.get('/details/:customerId', (req, res) => {
 	const { customerId } = req.params;
 
-	//* Find the user - (We assume it exists already)
 	UserModel.findOne({ userId: customerId })
 		.then((user) => {
 			console.log('printing user details...'.toLocaleUpperCase());
