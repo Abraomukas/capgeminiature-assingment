@@ -20,7 +20,7 @@ router.post('/:userId', (req, res) => {
 			const account = new AccountModel({
 				accountId: Math.floor(Math.random() * 100) + '',
 				credit: 0,
-				transactions: []
+				transactions: [],
 			});
 
 			user.accounts.push(account.accountId);
@@ -38,26 +38,38 @@ router.post('/:userId', (req, res) => {
 
 				user.balance += account.credit;
 
-				transaction.save()
-					.then(() => { console.log("new transaction created!".toLocaleUpperCase()); })
-					.catch((txnErr) => {
-						console.log('transaction save - error:'.toLocaleUpperCase(), txnErr);
-						res.status(500).send({ message: 'Transaction save error...', txnErr });
+				transaction
+					.save()
+					.then(() => {
+						console.log('new transaction created!'.toLocaleUpperCase());
 					})
+					.catch((txnErr) => {
+						console.log(
+							'transaction save - error:'.toLocaleUpperCase(),
+							txnErr
+						);
+						res
+							.status(500)
+							.send({ message: 'Transaction save error...', txnErr });
+					});
 			}
 
-			account.save()
+			account
+				.save()
 				.then(() => {
-					console.log("new account created!".toLocaleUpperCase());
-				}).catch((accErr) => {
+					console.log('new account created!'.toLocaleUpperCase());
+				})
+				.catch((accErr) => {
 					console.log('account save - error:'.toLocaleUpperCase(), accErr);
 					res.status(500).send({ message: 'Account save error...', accErr });
-				})
+				});
 
-			user.save()
+			user
+				.save()
 				.then(() => {
-					res.status(201).send({ message: "A new account has been created!" });
-				}).catch((userErr) => {
+					res.status(201).send({ message: 'A new account has been created!' });
+				})
+				.catch((userErr) => {
 					console.log('user update - error:'.toLocaleUpperCase(), userErr);
 					res.status(500).send({ message: 'User update error...', userErr });
 				});
@@ -72,6 +84,27 @@ router.post('/:userId', (req, res) => {
 //? user/details/:customerId
 router.get('/details/:customerId', (req, res) => {
 	const { customerId } = req.params;
+
+	//* Find the user - (We assume it exists already)
+	UserModel.findOne({ userId: customerId })
+		.then((user) => {
+			console.log('printing user details...'.toLocaleUpperCase());
+			console.log('name		- '.toLocaleUpperCase() + user.name);
+			console.log('surname	- '.toLocaleUpperCase() + user.surname);
+			console.log('balance	- '.toLocaleUpperCase() + user.balance);
+			console.log(
+				'transactions on his ['.toLocaleUpperCase() +
+					user.accounts.length +
+					'] accounts:'.toLocaleUpperCase()
+			);
+			user.accounts.map((account) => {
+				console.log('[' + account.accountId + ']');
+			});
+		})
+		.catch((err) => {
+			console.log('user not found...'.toLocaleUpperCase(), err);
+			res.status(404).send({ message: 'User not found...', err });
+		});
 
 	res.status(200).send({ message: 'Details for user - ' + customerId });
 });
