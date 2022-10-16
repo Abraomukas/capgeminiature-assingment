@@ -54,7 +54,7 @@ NEW ACCOUNT CREATED!
 
 Once again, I used **Postman** to interact with the application but `curl` is more than enough to address this use case.
 
-`curl http://localhost:8080/user/1234`
+`curl http://localhost:8080/user/details/1234`
 
 After sending this GET request to the running application, you will see this:
 

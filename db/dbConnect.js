@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
-require('dotenv').config();
+//! Just for localhost purposes
+const MONGO_URI =
+	'mongodb+srv://harvest:hA$$-BEST101@cluster0.irbq2.mongodb.net/harvest?retryWrites=true&w=majority';
 
 async function dbConnect() {
 	console.log('connecting to mongodb atlas...'.toLocaleUpperCase());
 	mongoose
-		.connect(process.env.MONGO_URI, {
+		.connect(MONGO_URI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		})
