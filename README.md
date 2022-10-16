@@ -83,7 +83,7 @@ TRANSACTIONS ON HIS [<see above>] ACCOUNTS:
 
 # Disclaimer
 
-I look forward to explaining how I did approached this assignments, the decisions I made, and the ideas I have around how to make it better.
+I look forward to explaining how I approached this assignment, the decisions I made, and the ideas I have around how to make it better.
 
 You have reached the end! Thank you for your time!
 
